@@ -30,7 +30,7 @@ class MainWindow(object):
             column += 1
 
     def main_loop(self):
-        self.clock.tick(5)
+        self.clock.tick(5) # Limit fps to 5, for better visualization of graph movement.
         isSorted = False
         i = 0
         j = 1
@@ -64,14 +64,9 @@ class MainWindow(object):
 
             
             self.draw_rects(self.arr)
-            #self.simple_sort(self.arr, len(self.arr))
-
-            # RENDER YOUR GAME HERE
 
             # flip() the display to put your work on screen
             pygame.display.flip()
-
-            self.clock.tick(60)  # limits FPS to 60
 
     def simple_sort(self, arr, n):
         for i in range(n):
