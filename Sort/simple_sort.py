@@ -7,6 +7,7 @@ def simple_sort(arr, n):
         while j <= n - 1:
             if arr[j] < arr[i]:
                 arr[i], arr[j] = arr[j], arr[i]
+                print(arr)
                 continue
             j += 1
 
