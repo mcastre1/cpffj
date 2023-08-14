@@ -30,7 +30,7 @@ class MainWindow(object):
             column += 1
 
     def main_loop(self):
-        self.clock.tick(5) # Limit fps to 5, for better visualization of graph movement.
+        #self.clock.tick(5)
         isSorted = False
         i = 0
         j = 1
@@ -38,15 +38,13 @@ class MainWindow(object):
         print(self.arr)
 
         while self.running:
-
-            # poll for events
             # pygame.QUIT event means the user clicked X to close your window
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
 
             # fill the screen with a color to wipe away anything from last frame
-            self.screen.fill("purple")
+            self.screen.fill("white")
 
             if not isSorted:
                 if i < len(self.arr):
@@ -61,12 +59,15 @@ class MainWindow(object):
                     
                     if i == len(self.arr) - 1:
                         print("Done sorting!")
+                        print(self.arr)
 
             
             self.draw_rects(self.arr)
 
             # flip() the display to put your work on screen
             pygame.display.flip()
+
+            self.clock.tick(20)  # limits FPS to 60
 
     def simple_sort(self, arr, n):
         for i in range(n):
