@@ -9,6 +9,8 @@ class MainWindow(object):
     YELLOW = (227, 227, 9)
     GREEN = (4, 181, 4)
     RED = (176, 5, 5)
+    MAX_H = 100
+    X_VALUES = random.randint(10,20)
 
     def __init__(self):
         self.init()
@@ -16,15 +18,15 @@ class MainWindow(object):
     def init(self):
         # pygame setup
         pygame.init()
-        self.screen = pygame.display.set_mode((360, 150))
+        self.screen = pygame.display.set_mode((30*(self.X_VALUES + 2), 150))
         self.clock = pygame.time.Clock()
         self.running = True
 
         #self.arr = [random.randint(1,100) for i in range(10)]
         self.arr = []
-        for i in range(1, 11):
-            h = random.randint(1,100)
-            self.arr.append(RectColor(30 * i, (50+abs(h-100)), 30, h))
+        for i in range(1, self.X_VALUES+1):
+            h = random.randint(1,self.MAX_H)
+            self.arr.append(RectColor(30 * i, (50+abs(h-self.MAX_H)), 30, h))
         
 
         self.main_loop()
@@ -34,6 +36,7 @@ class MainWindow(object):
     def draw_rects(self):
         for r in self.arr:
             pygame.draw.rect(self.screen, color=r.color, rect = r)
+
 
 
     def main_loop(self):
