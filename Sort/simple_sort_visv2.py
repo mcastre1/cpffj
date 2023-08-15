@@ -28,7 +28,7 @@ class MainWindow(object):
             h = random.randint(1,self.MAX_H)
             self.arr.append(RectColor(30 * i, (50+abs(h-self.MAX_H)), 30, h))
         
-
+        
         self.main_loop()
 
         pygame.quit()
@@ -77,6 +77,8 @@ class MainWindow(object):
                         print("Done sorting!")
                         print(self.arr)
 
+
+            
             self.draw_rects()
 
             # flip() the display to put your work on screen
