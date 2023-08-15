@@ -1,8 +1,15 @@
 import pygame
 import random
-import time
+from RectColor import RectColor
 
 class MainWindow(object):
+
+    BLACK = (0,0,0)
+    GRAY = (60,60,60)
+    YELLOW = (227, 227, 9)
+    GREEN = (4, 181, 4)
+    RED = (176, 5, 5)
+
     def __init__(self):
         self.init()
 
@@ -13,29 +20,26 @@ class MainWindow(object):
         self.clock = pygame.time.Clock()
         self.running = True
 
-        self.arr = [random.randint(1,100) for i in range(10)]
+        #self.arr = [random.randint(1,100) for i in range(10)]
+        self.arr = []
+        for i in range(1, 11):
+            h = random.randint(1,100)
+            self.arr.append(RectColor(30 * i, (50+abs(h-100)), 30, h))
         
 
         self.main_loop()
 
         pygame.quit()
 
-    def draw_rects(self, arr):
-        # Initializing Color
-        color = (255,0,0)
+    def draw_rects(self):
+        for r in self.arr:
+            pygame.draw.rect(self.screen, color=r.color, rect = r)
 
-        column = 1
-        for h in arr:
-            pygame.draw.rect(self.screen, color, pygame.Rect(30 * column, (50+abs(h-100)), 30, h))
-            column += 1
 
     def main_loop(self):
-        #self.clock.tick(5)
         isSorted = False
         i = 0
         j = 1
-
-        print(self.arr)
 
         while self.running:
             # pygame.QUIT event means the user clicked X to close your window
@@ -48,39 +52,34 @@ class MainWindow(object):
 
             if not isSorted:
                 if i < len(self.arr):
+                    self.arr[i].color = self.YELLOW
+                
                     if j < len(self.arr):
-                        if self.arr[j] < self.arr[i]:
-                            self.arr[i], self.arr[j] = self.arr[j], self.arr[i]
+                        if self.arr[j].h < self.arr[i].h:
+                            self.arr[i].color = self.BLACK
+                            self.arr[j].color = self.YELLOW
+                            self.arr[i].x, self.arr[j].x = self.arr[j].x, self.arr[i].x
+                            self.arr[i], self.arr[j] = self.arr[j], self.arr[i]   
+                        self.arr[j].color = self.RED
+                        
                         j += 1
                     
                     if j == len(self.arr):
+                        self.arr[i].color = self.BLACK
                         i += 1
                         j = i + 1
+                        
                     
                     if i == len(self.arr) - 1:
                         print("Done sorting!")
                         print(self.arr)
 
-            
-            self.draw_rects(self.arr)
+            self.draw_rects()
 
             # flip() the display to put your work on screen
             pygame.display.flip()
 
-            self.clock.tick(20)  # limits FPS to 60
-
-    def simple_sort(self, arr, n):
-        for i in range(n):
-            j = i+1
-            while j <= n - 1:
-                if arr[j] < arr[i]:
-                    arr[i], arr[j] = arr[j], arr[i]
-                    continue
-                j += 1
-
-
-
-
+            self.clock.tick(10)  # limits FPS to 60
 
 
 if __name__ == "__main__":
