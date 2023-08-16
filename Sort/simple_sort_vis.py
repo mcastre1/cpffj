@@ -1,6 +1,7 @@
 import pygame
 import random
 from RectColor import RectColor
+import time
 
 class MainWindow(object):
 
@@ -63,7 +64,6 @@ class MainWindow(object):
                             self.arr[j].color = self.YELLOW
                             self.arr[i].x, self.arr[j].x = self.arr[j].x, self.arr[i].x
                             self.arr[i], self.arr[j] = self.arr[j], self.arr[i]   
-                        self.arr[j].color = self.RED
                         
                         j += 1
                     
