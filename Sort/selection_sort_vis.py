@@ -39,6 +39,24 @@ class MainWindow(object):
             pygame.draw.rect(self.screen, color=r.color, rect = r)
 
 
+    def find_smallest(self, start, end):
+        temp = self.arr[start].h
+        index = -1
+        
+        for i in range(start, end + 1):
+            if self.arr[i].h < temp:
+                temp = self.arr[i].h
+                index = i
+
+        if index == -1:
+            return start
+
+        return index
+    
+
+    def swap(self, i, j):
+        self.arr[i].x, self.arr[j].x = self.arr[j].x, self.arr[i].x
+        self.arr[i], self.arr[j] = self.arr[j], self.arr[i]
 
     def main_loop(self):
         isSorted = False
@@ -55,9 +73,12 @@ class MainWindow(object):
             self.screen.fill("white")
 
             if not isSorted:
-                if i < len(self.arr - 1):
-                    smallest_found = find_smallest(arr)
-                    
+                if i < len(self.arr) - 1:
+                    smallest_found = self.find_smallest(i+1, len(self.arr)-1)
+                    if self.arr[smallest_found].h < self.arr[i].h:
+                        self.swap(i, smallest_found)
+
+                    i += 1
 
 
             
