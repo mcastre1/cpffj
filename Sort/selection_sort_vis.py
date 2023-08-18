@@ -74,6 +74,7 @@ class MainWindow(object):
 
             if not isSorted:
                 if i < len(self.arr) - 1:
+                    
                     smallest_found = self.find_smallest(i+1, len(self.arr)-1)
                     if self.arr[smallest_found].h < self.arr[i].h:
                         self.swap(i, smallest_found)
