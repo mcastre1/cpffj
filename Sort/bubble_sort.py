@@ -2,14 +2,18 @@ import random
 
 
 def bubble(arr):
-    for i in range(len(arr)-1, -1, -1):
-        if arr[i]<arr[i-1]:
-            arr[i], arr[i-1] = arr[i-1], arr[i]
+    j = 0
+    while j < len(arr) - 1:
+        if arr[j] > arr[j + 1]:
+            arr[j], arr[j+1] = arr[j + 1], arr[j]
+        j += 1
+        
 
 def bblSort(arr):
-    for i in range(len(arr)-1):
+    i = 0
+    while i < len(arr)-1:
         bubble(arr)
-
+        i += 1
 
 if __name__ == "__main__":
     arr = [random.randint(1,10) for i in range(10)]
