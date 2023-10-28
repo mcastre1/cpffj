@@ -1,6 +1,8 @@
 from PIL import Image
-import glob
+import os
 
+# Split given image into x amount of images of size tile_size
+# These splitted images will be squares
 def split_image(tile_size, path):
     image = Image.open(path, 'r')
     width, height = image.size
@@ -18,13 +20,32 @@ def split_image(tile_size, path):
         crop_img.save(f'./pygame_tools/out_tiles/{col}_image.png')
     im1.save('./new_image.png')
 
+# Turn all images in path into a gif
 def make_gif(path):
-    tiles = [Image.open(image) for image in glob.glob(f"./pygame_tools/out_files/*.PNG")]
-    print(len(tiles))
+    tiles = []
+    for file in os.listdir(path):
+        if file.endswith('.png'):
+            tiles.append(untransparent(Image.open(f'{path}/{file}', 'r')))
 
     first_tile = tiles[0]
-    first_tile.save('gif_test.gif', format="GIF", append_images = tiles, save_all=True, duration=100, loop=1)
+    first_tile.save('gif_test.gif', format="GIF", append_images = tiles, save_all=True, duration=85, loop=100)
+
+# Turn all transparent, alpha value of 1, pixels into a color with alpha value of 100
+# Making the background not transparent
+def untransparent(img):
+    img = img.convert("RGBA")
+    datas = img.getdata()
+
+    new_data = []
+    for item in datas:
+        if item[3] == 0:
+            new_data.append((82,82,82,100))
+        else:
+            new_data.append(item)
+
+    img.putdata(new_data)
+    return img
 
 if __name__ == "__main__":
     split_image(32, './pygame_tools/tile_folder/walking_v4.png')
-    make_gif("./")
+    make_gif("./pygame_tools/out_tiles")
