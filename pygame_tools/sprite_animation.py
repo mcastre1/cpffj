@@ -8,7 +8,7 @@ class Sprite(pygame.sprite.Sprite):
         self.images = self.split_image(image_path)
 
         self.sprite_index = 0
-        self.sprite_speed = 0.1
+        self.sprite_speed = 0.15
 
         self.image = pygame.Surface((tile_size, tile_size))
         self.rect = self.image.get_rect()
@@ -80,4 +80,4 @@ class Sprite_animator():
 
 
 if __name__ == '__main__':
-    animator = Sprite_animator('./tile_folder/idle.png', 32)
+    animator = Sprite_animator('./tile_folder/walking_v4.png', 32)
